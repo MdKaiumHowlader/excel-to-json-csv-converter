@@ -1,0 +1,29 @@
+import pandas as pd
+import os
+
+def convert_excel_to_csv_and_json(file_path):
+    try:
+        # Load the Excel file
+        df = pd.read_excel(file_path)
+
+        # Get the directory and file name (without extension)
+        base_dir = os.path.dirname(file_path)
+        file_name = os.path.splitext(os.path.basename(file_path))[0]
+
+        # Output file paths
+        csv_path = os.path.join(base_dir, f"{file_name}.csv")
+        json_path = os.path.join(base_dir, f"{file_name}.json")
+
+        # Convert to CSV
+        df.to_csv(csv_path, index=False)
+        print(f"✅ CSV file saved to: {csv_path}")
+
+        # Convert to JSON
+        df.to_json(json_path, orient="records", indent=4)
+        print(f"✅ JSON file saved to: {json_path}")
+
+    except Exception as e:
+        print(f"❌ Error: {e}")
+
+# Example usage
+convert_excel_to_csv_and_json(r"C:\Users\730ar\Downloads\sample_blood_donors.xlsx")
